@@ -2,6 +2,7 @@
 
 import { getCats } from "@/api-routes/cats";
 import { useEffect, useState } from "react";
+import UpdateCat from "../UpdateCat";
 
 const CatsList = () => {
   const [cats, setCats] = useState([]);
@@ -32,6 +33,7 @@ const CatsList = () => {
           <p>{cat.year}</p>
           <p>{cat.desc}</p>
           {cat.image_url && <img src={cat.image_url} alt={`Image of ${cat.name}`} width="200px" height="200px"/>}
+          <UpdateCat id={cat.id} />
         </div>
       ))}
     </div>

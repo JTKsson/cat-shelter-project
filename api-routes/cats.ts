@@ -4,14 +4,14 @@ import { uploadImage } from "@/utils/uploadImage";
 const supabase = createClient();
 
 export const getCats = async () => {
-  const { data, error, status } = await supabase.from('cats').select('*, image_url');
+  const { data, error, status } = await supabase
+    .from("cats")
+    .select("*, image_url");
 
   return { data, error, status };
 };
 
 export const addCat = async ({ name, year, desc, image }) => {
-
-
   if (image) {
     const { publicUrl, error } = await uploadImage(image);
 
@@ -19,7 +19,7 @@ export const addCat = async ({ name, year, desc, image }) => {
       image = publicUrl.publicUrl;
     }
 
-    console.log("image from addCat: ", image)
+    console.log("image from addCat: ", image);
   }
   try {
     const { data, error, status } = await supabase
@@ -38,11 +38,31 @@ export const addCat = async ({ name, year, desc, image }) => {
   }
 };
 
-// const avatarFile = event.target.files[0]
-// const { data, error } = await supabase
-//   .storage
-//   .from('avatars')
-//   .upload('public/avatar1.png', avatarFile, {
-//     cacheControl: '3600',
-//     upsert: false
-//   })
+export const updateCat = async ({ name, year, desc, image, id }) => {
+  const isNewImage = typeof image === "object" && image !== null;
+
+  console.log("id from api-route", id)
+
+  if (isNewImage) {
+    const { publicUrl, error } = await uploadImage(image);
+
+    if (!error) {
+      image = publicUrl.publicUrl;
+    }
+  }
+
+  const { data, error, status } = await supabase
+    .from("cats")
+    .update({
+      name: name,
+      year: year,
+      desc: desc,
+      image_url: image,
+    })
+    .select()
+    .single()
+    .eq("id", id);
+
+    console.log("id from lower api route", id)
+  return { error, status, data };
+};

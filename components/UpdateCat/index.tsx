@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from 'react';
-import { addCat } from '@/api-routes/cats';
+import { updateCat } from '@/api-routes/cats';
 import { uploadImage } from '@/utils/uploadImage';
 
-const AddCat = () => {
+const UpdateCat = ({id}) => {
   const [formData, setFormData] = useState({
     name: '',
     year: '',
@@ -41,25 +41,24 @@ const AddCat = () => {
         setFormData((prevData) => ({ ...prevData, image: publicUrl }));
       }
   
-      const response = await addCat(formData);
+      setFormData((prevData) => ({
+        ...prevData,
+        id: id,
+      }));
+  
+      const response = await updateCat(formData);
   
       if (!response) {
-        console.error('Unexpected response from addCat:', response);
+        console.error('Unexpected response from updateCat:', response);
         return;
       }
   
       if (response.error) {
-        console.error('Error adding cat:', response.error);
-      } else if (response.status === 201) {
-        console.log('Cat added successfully!');
-        setFormData({
-          name: '',
-          year: '',
-          desc: '',
-          image: null
-        });
+        console.error('Error updating cat:', response.error);
+      } else if (response.status === 200) {
+        console.log('Cat updated successfully!');
       } else {
-        console.error('Unexpected response structure from addCat:', response);
+        console.error('Unexpected response structure from updateCat:', response);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -90,9 +89,9 @@ const AddCat = () => {
         <input type="file" name="image" accept="image/*" onChange={handleChange} />
       </label>
       <br />
-      <button type="submit">Add Cat</button>
+      <button type="submit">Update Cat</button>
     </form>
   );
 };
 
-export default AddCat;
+export default UpdateCat;
