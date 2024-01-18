@@ -63,6 +63,7 @@ const UpdateCat = ({id}) => {
     } catch (error) {
       console.error('Error:', error);
     }
+    console.log(id)
   };
   
   

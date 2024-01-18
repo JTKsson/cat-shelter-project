@@ -61,7 +61,7 @@ export const updateCat = async ({ name, year, desc, image, id }) => {
     })
     .select()
     .single()
-    .eq("id", id);
+    .eq(id);
 
     console.log("id from lower api route", id)
   return { error, status, data };
