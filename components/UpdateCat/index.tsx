@@ -1,83 +1,96 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import { updateCat } from '@/api-routes/cats';
-import { uploadImage } from '@/utils/uploadImage';
+import React, { useState } from "react";
+import { updateCat } from "@/api-routes/cats";
+import { uploadImage } from "@/utils/uploadImage";
 
-const UpdateCat = ({id}) => {
+const UpdateCat = ({ id }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    year: '',
-    desc: '',
+    name: "",
+    year: "",
+    desc: "",
     image: null,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    if (name === 'image') {
+
+    if (name === "image") {
       const file = e.target.files?.[0];
-  
+
       if (file) {
         setFormData((prevData) => ({ ...prevData, [name]: file }));
       }
     } else {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
+    }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       if (formData.image) {
         const { publicUrl, error } = await uploadImage(formData.image);
-  
+
         if (error) {
-          console.error('Error uploading image:', error);
+          console.error("Error uploading image:", error);
           return;
         }
-  
+
         setFormData((prevData) => ({ ...prevData, image: publicUrl }));
       }
-  
+
+      // Include the id in formData
       setFormData((prevData) => ({
         ...prevData,
-        id: id,
+        id: id, // Make sure id is correctly set here
       }));
-  
+
+      // Call updateCat with formData, which includes the id
       const response = await updateCat(formData);
-  
+
       if (!response) {
-        console.error('Unexpected response from updateCat:', response);
+        console.error("Unexpected response from updateCat:", response);
         return;
       }
-  
+
       if (response.error) {
-        console.error('Error updating cat:', response.error);
+        console.error("Error updating cat:", response.error);
       } else if (response.status === 200) {
-        console.log('Cat updated successfully!');
+        console.log("Cat updated successfully!");
+        // Reset the form or perform any other necessary actions
       } else {
-        console.error('Unexpected response structure from updateCat:', response);
+        console.error(
+          "Unexpected response structure from updateCat:",
+          response
+        );
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
-    console.log(id)
   };
-  
-  
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Name:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
       </label>
       <br />
       <label>
         Year:
-        <input type="text" name="year" value={formData.year} onChange={handleChange} />
+        <input
+          type="text"
+          name="year"
+          value={formData.year}
+          onChange={handleChange}
+        />
       </label>
       <br />
       <label>
@@ -87,8 +100,14 @@ const UpdateCat = ({id}) => {
       <br />
       <label>
         Image:
-        <input type="file" name="image" accept="image/*" onChange={handleChange} />
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleChange}
+        />
       </label>
+      <p>{id}</p>
       <br />
       <button type="submit">Update Cat</button>
     </form>

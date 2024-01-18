@@ -23,19 +23,20 @@ const CatsList = () => {
     };
 
     fetchData();
-  }, [cats]);
+  });
 
   return (
     <div>
       <p>Kattlista</p>
       {cats.map((cat) => (
-        <div key={cat.id}>
+        <div className="mt-4 bg-green-600" key={cat.id}>
           <h2>{cat.name}</h2>
           <p>{cat.year}</p>
           <p>{cat.desc}</p>
           {cat.image_url && <img src={cat.image_url} alt={`Image of ${cat.name}`} width="200px" height="200px"/>}
           <UpdateCat id={cat.id} />
           <DeleteCat id={cat.id} />
+          <p>{cat.id}</p>
         </div>
       ))}
     </div>
