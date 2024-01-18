@@ -3,6 +3,7 @@
 import { getCats } from "@/api-routes/cats";
 import { useEffect, useState } from "react";
 import UpdateCat from "../UpdateCat";
+import DeleteCat from "../DeleteCat";
 
 const CatsList = () => {
   const [cats, setCats] = useState([]);
@@ -22,7 +23,7 @@ const CatsList = () => {
     };
 
     fetchData();
-  }, []);
+  }, [cats]);
 
   return (
     <div>
@@ -34,6 +35,7 @@ const CatsList = () => {
           <p>{cat.desc}</p>
           {cat.image_url && <img src={cat.image_url} alt={`Image of ${cat.name}`} width="200px" height="200px"/>}
           <UpdateCat id={cat.id} />
+          <DeleteCat id={cat.id} />
         </div>
       ))}
     </div>

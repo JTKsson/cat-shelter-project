@@ -3,8 +3,13 @@
 import React, { useState } from 'react';
 import { addCat } from '@/api-routes/cats';
 import { uploadImage } from '@/utils/uploadImage';
+import { useRouter } from 'next/navigation';
+
+
 
 const AddCat = () => {
+  const router = useRouter()
+
   const [formData, setFormData] = useState({
     name: '',
     year: '',
@@ -28,6 +33,7 @@ const AddCat = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+
   
     try {
       if (formData.image) {
@@ -58,6 +64,8 @@ const AddCat = () => {
           desc: '',
           image: null
         });
+
+        router.refresh()
       } else {
         console.error('Unexpected response structure from addCat:', response);
       }

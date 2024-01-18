@@ -66,3 +66,13 @@ export const updateCat = async ({ name, year, desc, image, id }) => {
     console.log("id from lower api route", id)
   return { error, status, data };
 };
+
+export const deleteCat = async ({id}) => {
+  
+  const { error } = await supabase
+  .from('cats')
+  .delete()
+  .eq('id', id)
+  
+  return (error)
+}

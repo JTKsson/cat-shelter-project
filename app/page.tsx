@@ -1,7 +1,8 @@
+"use client"
 import AddCat from "@/components/AddCat";
 import CatsList from "@/components/CatsList";
 
-export default async function Index() {
+export default function Index() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
