@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 
 const AddCat = () => {
-  const router = useRouter()
+const router = useRouter()
 
   const [formData, setFormData] = useState({
     name: '',

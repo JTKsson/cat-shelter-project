@@ -23,7 +23,7 @@ const CatsList = () => {
     };
 
     fetchData();
-  });
+  }, []);
 
   return (
     <div>

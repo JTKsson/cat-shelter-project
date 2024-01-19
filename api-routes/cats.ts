@@ -1,7 +1,9 @@
 import { createClient } from "@/utils/supabase/client";
 import { uploadImage } from "@/utils/uploadImage";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const supabase = createClient();
+
+const supabase = createClientComponentClient();
 
 export const getCats = async () => {
   const { data, error, status } = await supabase
