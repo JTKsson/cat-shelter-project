@@ -1,8 +1,8 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const supabase = createClient();
+const supabase = createClientComponentClient();
 
-export const uploadImage = async (file) => {
+export const uploadImage = async (file: File) => {
     console.log(file)
 
     const fullFileName = file.name.split(".")
@@ -27,12 +27,7 @@ export const uploadImage = async (file) => {
         .storage
         .from('catImages')
         .getPublicUrl(data.path)
-
-    // if (publicUrlError) {
-    //     return { error: publicUrlError }
-    // }
     return {
-     //   error: false,
         publicUrl
       }
 

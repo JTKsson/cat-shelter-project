@@ -4,6 +4,7 @@ import { getCats } from "@/api-routes/cats";
 import { useEffect, useState } from "react";
 import UpdateCat from "../UpdateCat";
 import DeleteCat from "../DeleteCat";
+import { Cats } from "@/types/types";
 
 const CatsList = () => {
   const [cats, setCats] = useState([]);
@@ -28,7 +29,7 @@ const CatsList = () => {
   return (
     <div>
       <p>Kattlista</p>
-      {cats.map((cat) => (
+      {cats && cats.map((cat: Cats) => (
         <div className="mt-4 bg-green-600" key={cat.id}>
           <h2>{cat.name}</h2>
           <p>{cat.year}</p>
