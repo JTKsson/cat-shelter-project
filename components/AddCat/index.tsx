@@ -33,7 +33,6 @@ const router = useRouter()
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-
   
     try {
       if (formData.image) {
@@ -72,9 +71,8 @@ const router = useRouter()
     } catch (error) {
       console.error('Error:', error);
     }
+    console.log({formData})
   };
-  
-  
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { updateCat } from "@/api-routes/cats";
 import { uploadImage } from "@/utils/uploadImage";
 import { Cats } from "@/types/types";
@@ -11,6 +11,7 @@ const UpdateCat = ({ id }: Cats) => {
     year: "",
     desc: "",
     image: null as File | null,
+    id: id
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +44,7 @@ const UpdateCat = ({ id }: Cats) => {
       }
 
       // Call updateCat with formData, which includes the id
-      const response = await updateCat({...formData, id});
+      const response = await updateCat(formData);
 
       if (!response) {
         console.error("Unexpected response from updateCat:", response);
@@ -52,7 +53,7 @@ const UpdateCat = ({ id }: Cats) => {
 
       if (response.error) {
         console.error("Error updating cat:", response.error);
-      } else if (response.ok) {
+      } else if (response.status === 201) {
         console.log("Cat updated successfully!");
         // Reset the form or perform any other necessary actions
       } else {
