@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <>
       <p>Hello</p>
-      {user ? (<div>You are logged in</div>) : (<div>You are not logged in</div>)}
+      {user ? (<div>User was found</div>) : (<div>User was not found</div>)}
     </>
   );
 }

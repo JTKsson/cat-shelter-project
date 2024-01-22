@@ -55,9 +55,8 @@ export const deleteCat = async ({id}: Cats) => {
 }
 
 export const updateCat = async ({ name, year, desc, image, id }: Cats) => {
-  if (!image) {
-    console.log("no image ")
-  }
+  let imageUrl: string | undefined;
+
   const isNewImage = typeof image === "object" && image !== null;
 
   //console.log("id from api-route", id)
@@ -67,7 +66,7 @@ export const updateCat = async ({ name, year, desc, image, id }: Cats) => {
     const { publicUrl, error } = await uploadImage(image);
 
     if (!error) {
-      image = publicUrl.publicUrl;
+      imageUrl = publicUrl.publicUrl;
     }
   }
 
@@ -77,7 +76,7 @@ export const updateCat = async ({ name, year, desc, image, id }: Cats) => {
       name: name,
       year: year,
       desc: desc,
-      image_url: image,
+      image_url: imageUrl,
     })
     .eq("id", id)
 
