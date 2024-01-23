@@ -1,19 +1,15 @@
-'use client'
+import { useUser } from "@supabase/auth-helpers-react";
 
-import { createClient } from '@/utils/supabase/client'
-import { useEffect, useState } from 'react'
+export default async function Page() {
 
-export default function Page() {
-  const [notes, setNotes] = useState<any[] | null>(null)
-  const supabase = createClient()
+  const user = "Hello"
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase.from('cats').select()
-      setNotes(data)
-    }
-    getData()
-  }, [])
+  console.log(user)
 
-  return <pre>{JSON.stringify(notes, null, 2)}</pre>
+  return (
+    <>
+      <p>Hello</p>
+      {{user} ? (<div>User was found</div>) : (<div>User was not found</div>)}
+    </>
+  );
 }

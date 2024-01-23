@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 
 const AddCat = () => {
-  const router = useRouter()
+const router = useRouter()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -33,7 +33,6 @@ const AddCat = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-
   
     try {
       if (formData.image) {
@@ -72,9 +71,8 @@ const AddCat = () => {
     } catch (error) {
       console.error('Error:', error);
     }
+    console.log({formData})
   };
-  
-  
 
   return (
     <form onSubmit={handleSubmit}>

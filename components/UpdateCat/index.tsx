@@ -1,18 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { updateCat } from "@/api-routes/cats";
 import { uploadImage } from "@/utils/uploadImage";
+import { Cats } from "@/types/types";
 
-const UpdateCat = ({ id }) => {
+const UpdateCat = ({ id }: Cats) => {
   const [formData, setFormData] = useState({
     name: "",
     year: "",
     desc: "",
-    image: null,
+    image: null as File | null,
+    id: id
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === "image") {
@@ -26,7 +28,7 @@ const UpdateCat = ({ id }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
 
     try {
@@ -41,12 +43,6 @@ const UpdateCat = ({ id }) => {
         setFormData((prevData) => ({ ...prevData, image: publicUrl }));
       }
 
-      // Include the id in formData
-      setFormData((prevData) => ({
-        ...prevData,
-        id: id, // Make sure id is correctly set here
-      }));
-
       // Call updateCat with formData, which includes the id
       const response = await updateCat(formData);
 
@@ -57,7 +53,7 @@ const UpdateCat = ({ id }) => {
 
       if (response.error) {
         console.error("Error updating cat:", response.error);
-      } else if (response.status === 200) {
+      } else if (response.status === 201) {
         console.log("Cat updated successfully!");
         // Reset the form or perform any other necessary actions
       } else {
