@@ -5,7 +5,7 @@ import { updateCat } from "@/api-routes/cats";
 import { uploadImage } from "@/utils/uploadImage";
 import { Cats } from "@/types/types";
 
-const UpdateCat = ({ id }: Cats) => {
+const UpdateCat = ({ id, name, year, desc }: Cats) => {
   const [formData, setFormData] = useState({
     name: "",
     year: "",

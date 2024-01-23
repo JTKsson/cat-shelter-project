@@ -3,7 +3,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 //import { useSession } from "@supabase/auth-helpers-react";
 import { User } from "@/types/types";
 
-const supabase = createClientComponentClient()
+const supabase = createClientComponentClient();
 
 export const createUser = async ({ email, password }: User) => {
   const { error } = await supabase.auth.signUp({
@@ -11,23 +11,30 @@ export const createUser = async ({ email, password }: User) => {
     password: password,
   });
 
-  return (error)
+  return error;
 };
 
 export const signIn = async ({ email, password }: User) => {
-
-  console.log("from user.ts ", email, password)
+  console.log("from user.ts ", email, password);
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
-
   });
 
-   console.log(data, error)
+  console.log(data, error);
 };
 
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
 
-  return (error)
+  return error;
+};
+
+export const getUser = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log("user from backend: ", user);
+  return user;
 };

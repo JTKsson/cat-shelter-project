@@ -11,7 +11,11 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession()
 
-  console.log("middleware", session)
+  console.log("middleware session", session)
+
+  const {data: user} = await supabase.auth.getUser()
+
+  console.log("middleware user: ", user)
 
   // Check auth condition
   if (session) {
@@ -27,5 +31,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/notes"], //använd array för fler URL:er
+  matcher: ["/notes", "/admin"], //använd array för fler URL:er
 }
