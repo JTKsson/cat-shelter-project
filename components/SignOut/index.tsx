@@ -1,23 +1,24 @@
-"use client"
+"use client";
 
-import { signOut } from "@/api-routes/users"
+import { signOut } from "@/api-routes/users";
+import { useRouter } from "next/navigation";
 
 const SignOut = () => {
+  const router = useRouter();
 
   const handleSubmit = async () => {
+    await signOut();
+    console.log("sign out success");
 
-    try {
-      await signOut()
-      console.log("sign out success")
-      
-    } catch (error) {
-      console.log("sign out failed: ", error)
-    }
-  }
+    router.refresh();
+    router.push("/login");
+  };
 
-  return(
-    <button type="submit" onClick={handleSubmit}>Sign out</button>
-  )
-}
+  return (
+    <button type="submit" onClick={handleSubmit}>
+      Sign out
+    </button>
+  );
+};
 
-export default SignOut
+export default SignOut;
