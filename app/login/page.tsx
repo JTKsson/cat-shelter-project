@@ -1,38 +1,58 @@
-"use client"
+"use client";
 
-import { Auth } from '@supabase/auth-ui-react'
-import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { signIn } from "@/api-routes/users";
 
 const Login = () => {
-  const client = createClientComponentClient()
-  const router = useRouter()
-
- const getUser = async () => {
-   const {
-    data: { user },
-  } = await client.auth.getUser();
- }
-
+  const [isUser, setIsUser] = useState(null);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const supabase = createClientComponentClient();
+  const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      router.push("/admin")
+    const getUser = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        setIsUser(user);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    getUser();
+
+    if (isUser) {
+      router.push("/admin");
     }
-  }, [user, router])
+  }, [isUser, router]);
 
-    return (
-      <Auth
-        redirectTo="/"
-        appearance={{ theme: ThemeSupa }}
-        supabaseClient={client}
-        providers={[]}
-        socialLayout="horizontal"
+  const handleSignIn = async () => {
+    await signIn({
+      email: email,
+      password: password,
+    })
+    router.refresh()
+    router.push("/")
+  }
+
+  return (
+    <>
+      <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+      <input
+        type="password"
+        name="password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
       />
-    )
+      <button onClick={handleSignIn}>Sign in</button>
+    </>
+  )
+};
 
-}
-
-export default Login
+export default Login;

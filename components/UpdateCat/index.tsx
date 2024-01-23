@@ -43,7 +43,6 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
         setFormData((prevData) => ({ ...prevData, image: publicUrl }));
       }
 
-      // Call updateCat with formData, which includes the id
       const response = await updateCat(formData);
 
       if (!response) {
@@ -55,7 +54,6 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
         console.error("Error updating cat:", response.error);
       } else if (response.status === 201) {
         console.log("Cat updated successfully!");
-        // Reset the form or perform any other necessary actions
       } else {
         console.error(
           "Unexpected response structure from updateCat:",

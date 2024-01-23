@@ -10,7 +10,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const CatsList = () => {
   const [cats, setCats] = useState([]);
-  const [isUser, setIsUser] = useState(null); // Assuming user is an object, you might need to adjust this based on your actual implementation
+  const [isUser, setIsUser] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,17 +29,19 @@ const CatsList = () => {
 
     fetchData();
 
-    const supabase = createClientComponentClient();
+  
 
+    
+    const supabase = createClientComponentClient();
+    
     const getUser = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-    
-      console.log("user from backend: ", user);
+      
       setIsUser(user);
     };
-
+    
     getUser()
   }, []);
 
