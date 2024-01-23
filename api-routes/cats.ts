@@ -71,13 +71,13 @@ export const updateCat = async ({ name, year, desc, image, id }: Cats) => {
   try {
     const { error, status } = await supabase
       .from("cats")
-      .update({
+      .upsert({
         name: name,
         year: year,
         desc: desc,
         image_url: imageUrl,
       })
-      .match({id: id}); // Specify the condition using eq method
+      .eq("id", id); // Specify the condition using eq method
     console.log({ error, status });
     return { error, status };
   } catch (error) {

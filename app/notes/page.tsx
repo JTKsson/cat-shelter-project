@@ -1,15 +1,11 @@
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 
 export default async function Page() {
 
-  const supabase = createClientComponentClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  //let metadata = user.user_metadata
+  const user = "Hello"
 
-  console.log({user})
+  console.log(user)
+
   return (
     <>
       <p>Hello</p>
