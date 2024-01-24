@@ -66,9 +66,9 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="flex flex-col p-4 text-left" onSubmit={handleSubmit}>
       <label>
-        Name:
+        Name: <br/>
         <input
           type="text"
           name="name"
@@ -78,7 +78,7 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
       </label>
       <br />
       <label>
-        Year:
+        Born: <br/>
         <input
           type="text"
           name="year"
@@ -101,9 +101,8 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
           onChange={handleChange}
         />
       </label>
-      <p>{id}</p>
       <br />
-      <button type="submit">Update Cat</button>
+      <button className="bg-blue-800 rounded-xl px-3 py-2 w-fit self-center mt-4" type="submit">Update Cat</button>
     </form>
   );
 };
