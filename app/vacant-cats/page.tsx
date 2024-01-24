@@ -1,10 +1,10 @@
 "use client"
 import AddCat from "@/components/AddCat";
 import CatsList from "@/components/CatsList";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { User, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 const VacantCats = () => {
-  const [isUser, setIsUser] = useState(null);
+  const [isUser, setIsUser] = useState<User | null>(null);
 
   useEffect(() => {
     const supabase = createClientComponentClient();
