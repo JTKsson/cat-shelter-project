@@ -1,16 +1,19 @@
 import { deleteCat } from "@/api-routes/cats";
+import { Cats } from "@/types/types";
 import { useRouter } from "next/navigation";
+import React from "react";
 
-const DeleteCat = ({ id }) => {
+const DeleteCat = (id: Cats) => {
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const confirm = window.confirm("Are you sure?");
 
     if (confirm) {
-      await deleteCat({ id });
+      
+      await deleteCat( id );
 
       router.refresh();
       console.log("Post removed");

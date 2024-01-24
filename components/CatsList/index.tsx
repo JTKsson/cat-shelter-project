@@ -80,7 +80,7 @@ const CatsList = () => {
                   <p className="text-lg">Born: {cat.year}</p>
                   {isUser && (
                     <div className="flex flex-col p-4">
-                      <DeleteCat id={cat.id} />
+                      <DeleteCat id={cat.id} name={""} year={""} desc={""} />
                       <button
                         onClick={() => toggleUpdateCat(cat.id!)}
                         className="bg-blue-800  rounded-xl px-3 py-2 w-fit self-center mt-4"

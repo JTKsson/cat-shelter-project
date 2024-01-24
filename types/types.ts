@@ -1,6 +1,6 @@
 
 export interface Cats {
-  id?: string;
+  id?: string | undefined;
   name: string;
   year: string;
   desc: string;
