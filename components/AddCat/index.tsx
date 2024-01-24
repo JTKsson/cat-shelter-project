@@ -75,29 +75,32 @@ const router = useRouter()
   };
 
   return (
+    <div className="flex flex-col bg-slate-600 p-4 rounded-xl">
+    <p className=' text-lg'>Add cat to the list: </p>
     <form onSubmit={handleSubmit}>
       <label>
-        Name:
+        Name: <br/>
         <input type="text" name="name" value={formData.name} onChange={handleChange} />
       </label>
       <br />
       <label>
-        Year:
+        Year: <br/>
         <input type="text" name="year" value={formData.year} onChange={handleChange} />
       </label>
       <br />
       <label>
-        Description:
+        Description: <br/>
         <textarea name="desc" value={formData.desc} onChange={handleChange} />
       </label>
       <br />
       <label>
-        Image:
+        Image:  <br/>
         <input type="file" name="image" accept="image/*" onChange={handleChange} />
       </label>
       <br />
-      <button type="submit">Add Cat</button>
+      <button className="bg-blue-800  rounded-xl px-3 py-2 w-fit self-center mt-4" type="submit">Add Cat</button>
     </form>
+    </div>
   );
 };
 

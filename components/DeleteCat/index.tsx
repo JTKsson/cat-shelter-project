@@ -20,7 +20,7 @@ const DeleteCat = ({ id }) => {
   };
 
   return (
-    <button type="submit" onClick={handleSubmit}>
+    <button className="bg-red-600 rounded-xl px-3 py-2 w-fit self-center" type="submit" onClick={handleSubmit}>
       Delete
     </button>
   );

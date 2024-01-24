@@ -15,7 +15,7 @@ const SignOut = () => {
   };
 
   return (
-    <button type="submit" onClick={handleSubmit}>
+    <button className="text-left" type="submit" onClick={handleSubmit}>
       Sign out
     </button>
   );
