@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { User, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { signIn } from "@/api-routes/users";
 
 const Login = () => {
-  const [isUser, setIsUser] = useState(null);
+  const [isUser, setIsUser] = useState<User | null>(null);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const supabase = createClientComponentClient();
