@@ -5,8 +5,6 @@ import { addCat } from '@/api-routes/cats';
 import { uploadImage } from '@/utils/uploadImage';
 import { useRouter } from 'next/navigation';
 
-
-
 const AddCat = () => {
 const router = useRouter()
 
@@ -25,6 +23,7 @@ const router = useRouter()
       const file = fileInput.files?.[0];
   
       if (file) {
+        //@ts-ignore
         setFormData((prevData) => ({ ...prevData, [name]: file }));
       }
     } else {
@@ -43,7 +42,7 @@ const router = useRouter()
           console.error('Error uploading image:', error);
           return;
         }
-  
+          //@ts-ignore
         setFormData((prevData) => ({ ...prevData, image: publicUrl }));
       }
   

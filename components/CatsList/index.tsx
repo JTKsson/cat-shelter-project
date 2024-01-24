@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import UpdateCat from "../UpdateCat";
 import DeleteCat from "../DeleteCat";
 import { Cats } from "@/types/types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import {
+  User,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
 
 const CatsList = () => {
-  const [cats, setCats] = useState([]);
-  const [isUser, setIsUser] = useState(null);
-  const [expandedDescId, setExpandedDescId] = useState(null);
-  const [expandUpdateCat, setExpandUpdateCat] = useState(null);
+  const [cats, setCats] = useState<Cats[]>([]);
+  const [isUser, setIsUser] = useState<User | null>(null);
+  const [expandedDescId, setExpandedDescId] = useState<string | null>(null);
+  const [expandUpdateCat, setExpandUpdateCat] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,12 +46,16 @@ const CatsList = () => {
     getUser();
   }, []);
 
-  const toggleDescription = (catId) => {
-    setExpandedDescId((prevId) => (prevId === catId ? null : catId));
+  const toggleDescription = (catId: string) => {
+    setExpandedDescId((prevId: string | null) =>
+      prevId === catId ? null : catId
+    );
   };
 
-  const toggleUpdateCat = (update) => {
-    setExpandUpdateCat((prevState) => (prevState === update ? null : update));
+  const toggleUpdateCat = (update: string) => {
+    setExpandUpdateCat((prevState: string | null) =>
+      prevState === update ? null : update
+    );
   };
 
   return (
@@ -57,7 +64,10 @@ const CatsList = () => {
       <div className="flex flex-col w-full">
         {cats &&
           cats.map((cat: Cats) => (
-            <div className="flex flex-col p-4 mt-4 bg-gray-900 w-full" key={cat.id}>
+            <div
+              className="flex flex-col p-4 mt-4 bg-gray-900 w-full"
+              key={cat.id}
+            >
               <div className=" flex flex-row justify-evenly">
                 <div className="w-3/5">
                   {cat.image_url && (
@@ -72,7 +82,7 @@ const CatsList = () => {
                     <div className="flex flex-col p-4">
                       <DeleteCat id={cat.id} />
                       <button
-                        onClick={() => toggleUpdateCat(cat.id)}
+                        onClick={() => toggleUpdateCat(cat.id!)}
                         className="bg-blue-800  rounded-xl px-3 py-2 w-fit self-center mt-4"
                       >
                         {expandUpdateCat === cat.id
@@ -95,13 +105,9 @@ const CatsList = () => {
               </div>
               <div className="m-4">
                 <p className="text-lg">Description: </p>
-                {expandedDescId === cat.id && (
-                  <p>
-                    {cat.desc}
-                  </p>
-                )}
+                {expandedDescId === cat.id && <p>{cat.desc}</p>}
                 <button
-                  onClick={() => toggleDescription(cat.id)}
+                  onClick={() => toggleDescription(cat.id!)}
                   className="text-blue-500 underline cursor-pointer"
                 >
                   {expandedDescId === cat.id ? "Show less" : "Show more"}

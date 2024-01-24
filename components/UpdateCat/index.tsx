@@ -1,26 +1,29 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { updateCat } from "@/api-routes/cats";
 import { uploadImage } from "@/utils/uploadImage";
 import { Cats } from "@/types/types";
 
 const UpdateCat = ({ id, name, year, desc }: Cats) => {
+
   const [formData, setFormData] = useState({
     name: "",
     year: "",
     desc: "",
-    image: null as File | null,
-    id: id
+    image: null,
+    id: id,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === "image") {
-      const file = e.target.files?.[0];
+      const fileInput = e.target as HTMLInputElement;
+      const file = fileInput.files?.[0];
 
       if (file) {
+        //@ts-ignore
         setFormData((prevData) => ({ ...prevData, [name]: file }));
       }
     } else {
@@ -28,7 +31,7 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
     }
   };
 
-  const handleSubmit = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -39,7 +42,7 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
           console.error("Error uploading image:", error);
           return;
         }
-
+        //@ts-ignore
         setFormData((prevData) => ({ ...prevData, image: publicUrl }));
       }
 
@@ -55,10 +58,7 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
       } else if (response.status === 201) {
         console.log("Cat updated successfully!");
       } else {
-        console.error(
-          "Unexpected response structure from updateCat:",
-          response
-        );
+        console.error("Unexpected response structure from updateCat:", response);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -88,12 +88,12 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
       </label>
       <br />
       <label>
-        Description:
+        Description:<br/>
         <textarea name="desc" value={formData.desc} onChange={handleChange} />
       </label>
       <br />
       <label>
-        Image:
+        Image:<br/>
         <input
           type="file"
           name="image"

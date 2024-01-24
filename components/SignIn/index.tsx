@@ -1,7 +1,7 @@
 "use client"
 
 import { signIn } from '@/api-routes/users';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
@@ -11,14 +11,14 @@ const SignIn = () => {
     password: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     console.log({formData})
@@ -28,7 +28,7 @@ const SignIn = () => {
       router.push("/")
       console.log("sign in successfull")
     } catch (error) {
-      console.error('Sign-in error:', error.message);
+      console.error('Sign-in error:', error);
     }
   };
 
