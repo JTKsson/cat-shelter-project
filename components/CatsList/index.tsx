@@ -57,8 +57,8 @@ const CatsList = () => {
       <div className="flex flex-col w-full">
         {cats &&
           cats.map((cat: Cats) => (
-            <div className="flex flex-col p-4 mt-4 bg-gray-900 w-full">
-              <div className=" flex flex-row justify-evenly" key={cat.id}>
+            <div className="flex flex-col p-4 mt-4 bg-gray-900 w-full" key={cat.id}>
+              <div className=" flex flex-row justify-evenly">
                 <div className="w-3/5">
                   {cat.image_url && (
                     <img src={cat.image_url} alt={`Image of ${cat.name}`} />

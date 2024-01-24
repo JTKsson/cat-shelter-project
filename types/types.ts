@@ -4,7 +4,7 @@ export interface Cats {
   name: string;
   year: string;
   desc: string;
-  image?: File | null;
+  image?: {file: File} | {publicUrl: string} | null;
   image_url?: string | null;
 }
 

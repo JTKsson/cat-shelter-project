@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { addCat } from '@/api-routes/cats';
 import { uploadImage } from '@/utils/uploadImage';
 import { useRouter } from 'next/navigation';
@@ -17,11 +17,12 @@ const router = useRouter()
     image: null,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
   
     if (name === 'image') {
-      const file = e.target.files?.[0];
+      const fileInput = e.target as HTMLInputElement;
+      const file = fileInput.files?.[0];
   
       if (file) {
         setFormData((prevData) => ({ ...prevData, [name]: file }));
@@ -31,7 +32,7 @@ const router = useRouter()
     };
   };
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
     try {
