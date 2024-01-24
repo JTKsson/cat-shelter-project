@@ -9,9 +9,9 @@ import { Cats } from "@/types/types";
 const UpdateCat = ({ id, name, year, desc }: Cats) => {
 
   const [formData, setFormData] = useState({
-    name: "",
-    year: "",
-    desc: "",
+    name: name,
+    year: year,
+    desc: desc,
     image: null,
     id: id,
   });
@@ -56,7 +56,7 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
 
       if (response.error) {
         console.error("Error updating cat:", response.error);
-      } else if (response.status === 201) {
+      } else if (response.status === 204) {
         console.log("Cat updated successfully!");
       } else {
         console.error("Unexpected response structure from updateCat:", response);
@@ -67,7 +67,7 @@ const UpdateCat = ({ id, name, year, desc }: Cats) => {
   };
 
   return (
-    <form className="flex flex-col p-4 text-left" onSubmit={handleSubmit}>
+    <form className="flex flex-col p-4 text-left text-black" onSubmit={handleSubmit}>
       <label>
         Name: <br/>
         <input

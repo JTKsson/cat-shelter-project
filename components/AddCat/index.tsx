@@ -76,7 +76,7 @@ const router = useRouter()
   };
 
   return (
-    <div className="flex flex-col bg-slate-600 p-4 rounded-xl">
+    <div className="flex flex-col bg-slate-600 p-4 rounded-xl text-black">
     <p className=' text-lg'>Add cat to the list: </p>
     <form onSubmit={handleSubmit}>
       <label>
