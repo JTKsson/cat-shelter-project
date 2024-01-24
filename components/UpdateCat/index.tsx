@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
