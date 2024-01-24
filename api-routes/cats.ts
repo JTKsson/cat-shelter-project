@@ -16,6 +16,7 @@ export const addCat = async ({ name, year, desc, image }: Cats) => {
   let imageUrl: string | undefined;
 
   if (image) {
+    //@ts-ignore
     const { publicUrl, error } = await uploadImage(image);
 
     if (!error) {
@@ -61,6 +62,7 @@ export const updateCat = async ({ name, year, desc, image, id }: Cats) => {
   console.log({ name, year, desc, image, id });
 
   if (isNewImage) {
+    //@ts-ignore
     const { publicUrl, error } = await uploadImage(image);
 
     if (!error) {
