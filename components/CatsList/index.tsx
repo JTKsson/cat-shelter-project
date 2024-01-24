@@ -11,6 +11,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 const CatsList = () => {
   const [cats, setCats] = useState([]);
   const [isUser, setIsUser] = useState(null);
+  const [expandedDescId, setExpandedDescId] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,53 +30,73 @@ const CatsList = () => {
 
     fetchData();
 
-  
-
-    
     const supabase = createClientComponentClient();
-    
+
     const getUser = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      
+
       setIsUser(user);
     };
-    
-    getUser()
+
+    getUser();
   }, []);
 
-  return (
-    <div>
-      <p>Kattlista</p>
-      {cats &&
-        cats.map((cat: Cats) => (
-          <div className="mt-4 bg-green-600" key={cat.id}>
-            <h2>{cat.name}</h2>
-            <p>{cat.year}</p>
-            <p>{cat.desc}</p>
-            {cat.image_url && (
-              <img
-                src={cat.image_url}
-                alt={`Image of ${cat.name}`}
-                width="200px"
-                height="200px"
-              />
-            )}
+  const toggleDescription = (catId) => {
+    setExpandedDescId((prevId) => (prevId === catId ? null : catId));
+  };
 
-                {isUser && (
-              <div>
-                <UpdateCat
-                  id={cat.id}
-                  name={cat.name}
-                  year={cat.year}
-                  desc={cat.desc}
-                />
-                <DeleteCat id={cat.id} />
+  return (
+    <div className="flex flex-col w-11/12 justify-center">
+      <p>Kattlista</p>
+      <div className="flex flex-col w-full">
+        {cats &&
+          cats.map((cat: Cats) => (
+           <div className="flex flex-col p-4 mt-4 bg-gray-900 w-full"> 
+            <div
+              className=" flex flex-row justify-evenly"
+              key={cat.id}
+            >
+              <div className="w-3/5">
+                {cat.image_url && (
+                  <img src={cat.image_url} alt={`Image of ${cat.name}`} />
+                )}
               </div>
-            )}
-          </div>
-        ))}
+
+              <div className="flex flex-col w-2/5 justify-center text-center">
+                <h2 className="text-2xl p-2">Name: {cat.name}</h2>
+                <p className="text-lg">Born: {cat.year}</p>
+              </div>
+           
+              {isUser && (
+                <div>
+                  <UpdateCat
+                    id={cat.id}
+                    name={cat.name}
+                    year={cat.year}
+                    desc={cat.desc}
+                  />
+                  <DeleteCat id={cat.id} />
+                </div>
+              )}
+            </div>
+            <div className="m-4">
+            {expandedDescId === cat.id && (
+                <p>
+                  Description: <br />
+                  {cat.desc}
+                </p>)}
+                <button
+                onClick={() => toggleDescription(cat.id)}
+                className="text-blue-500 underline cursor-pointer"
+              >
+                {expandedDescId === cat.id ? "Show less" : "Show more"}
+              </button></div>
+                </div>
+          ))}
+          
+      </div>
     </div>
   );
 };

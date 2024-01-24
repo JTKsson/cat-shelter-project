@@ -13,6 +13,8 @@ const Footer = () => {
         <section className="flex flex-col">
           <Link href="/admin">Admin</Link>
           <SignOut />
+          <p>Social media link</p>
+          <p>Social media link</p>
         </section>
       </div>
       <p className="text-center">Name of catshelter | Page build by <Link href="https://github.com/JTKsson" target="_blank">Timothy Karlsson</Link></p>
