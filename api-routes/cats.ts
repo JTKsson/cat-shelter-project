@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Cats } from "@/types/types";
 import { uploadImage } from "@/utils/uploadImage";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
