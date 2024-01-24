@@ -73,7 +73,7 @@ export const updateCat = async ({ name, year, desc, image, id }: Cats) => {
   try {
     const { error, status } = await supabase
       .from("cats")
-      .upsert({
+      .update({
         name: name,
         year: year,
         desc: desc,
