@@ -42,16 +42,18 @@ const Login = () => {
   }
 
   return (
-    <>
-      <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+    <div className="flex flex-col bg-slate-600 p-4 rounded-xl self-center mt-4">
+      <p className="mb-2">Sign in</p>
+      <input className="mb-2" name="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email"/>
       <input
         type="password"
         name="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
+        placeholder="Password"
       />
-      <button onClick={handleSignIn}>Sign in</button>
-    </>
+      <button className="bg-blue-800  rounded-xl px-3 py-2 w-fit self-center mt-4"  onClick={handleSignIn}>Sign in</button>
+    </div>
   )
 };
 

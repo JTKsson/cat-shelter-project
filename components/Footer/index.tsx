@@ -28,7 +28,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className="flex flex-col p-4 justify-center">
+    <div className="flex flex-col p-4 justify-center bg-gray-800">
       <div className="flex flex-row p-2 justify-evenly">
         <section className="flex flex-col">
           <p>Sponsors:</p>

@@ -22,7 +22,7 @@ const VacantCats = () => {
 
   return(
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-    <h1>Vacant cats</h1>
+    <h2>Vacant cats</h2>
     <CatsList />
     {isUser && (
       <AddCat />

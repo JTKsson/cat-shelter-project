@@ -59,8 +59,7 @@ const CatsList = () => {
   };
 
   return (
-    <div className="flex flex-col w-11/12 justify-center">
-      <p>Kattlista</p>
+    <div className="flex flex-col w-11/12 justify-center p-4">
       <div className="flex flex-col w-full">
         {cats &&
           cats.map((cat: Cats) => (
