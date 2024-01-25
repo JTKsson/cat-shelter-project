@@ -1,7 +1,12 @@
+import CreateUser from "@/components/CreateUser";
 
 const Admin = () => {
+  return (
+    <>
+      <p>Admin page</p>
+      <CreateUser/>
+    </>
+  );
+};
 
-  return(<p>Admin page</p>)
-}
-
-export default Admin
+export default Admin;
